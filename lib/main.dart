@@ -2,6 +2,7 @@ import 'package:drawer/src/pages/alert_page.dart';
 import 'package:drawer/src/pages/avatar_page.dart';
 import 'package:drawer/src/pages/card_page.dart';
 import 'package:drawer/src/pages/login_page.dart';
+import 'package:drawer/src/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'src/pages/home_page.dart';
 
@@ -29,9 +30,13 @@ class MyApp extends StatelessWidget {
     );
   }
 
+/*
+Este metodo permite la navegacion entre las distintas pages de nuestra aplicacion
+*/
   Map<String, WidgetBuilder> _crearRutas(context) {
     return <String, WidgetBuilder>{
       '/': (context) => LoginPage(),
+      'register': (context) => RegisterPage(),
       'home': (context) => MyHomePage(),
       'alert': (context) => MyAlertPage(),
       'avatar': (context) => AvatarPage(),

@@ -20,6 +20,10 @@ class MyHomePage extends StatelessWidget {
         );
   }
 
+/*
+Este metodo inserta en la lista las rutas y las paginas a las que se dirigen desde un provider
+*/
+
   Widget _lista() {
     return FutureBuilder(
       future: menuProvider.cargarData(),
@@ -32,6 +36,9 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
+/*
+Este es un submetodo que asiste al metodo anterior y les asigna a cada uno una ruta y crea la lista
+*/
   List<Widget> _listaitem(List<dynamic>? data, BuildContext context) {
     final List<Widget> opciones = [];
     data?.forEach((ruta) {
@@ -44,27 +51,5 @@ class MyHomePage extends StatelessWidget {
       opciones.add(tempWidget);
     });
     return opciones;
-  }
-
-  List<Widget> _crearItems() {
-    List<Widget> items = [];
-
-    for (String opt in menu) {
-      final tempWidget = ListTile(title: Text(opt));
-      items.add(tempWidget);
-    }
-    return items;
-  }
-
-  List<Widget> _crearItemsCorto(context) {
-    return menu.map((item) {
-      return ListTile(
-        title: Text(item),
-        onTap: () {
-          final ruta = MaterialPageRoute(builder: (context) => MyAlertPage());
-          Navigator.push(context, ruta);
-        },
-      );
-    }).toList();
   }
 }

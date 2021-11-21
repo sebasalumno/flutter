@@ -25,15 +25,12 @@ class _LoginPageState extends State<LoginPage> {
     'Super Fuerza'
   ];
 
-  final TextEditingController _inputFieldDateController =
-      new TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.lightBlue,
         appBar: AppBar(
-          backgroundColor: Colors.lightBlue,
+          backgroundColor: Colors.black,
           title: const Text('Bienvenido'),
           shadowColor: Colors.green,
         ),
@@ -43,18 +40,59 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.all(40.0),
             children: <Widget>[
               _crearEmail(),
-              const Divider(),
+              const Divider(
+                height: 40.0,
+                color: Colors.lightBlue,
+              ),
               _crearPassword(),
-              const Divider(),
+              const Divider(
+                height: 40.0,
+                color: Colors.lightBlue,
+              ),
               _crearBotonLogin(),
-              const Divider()
+              const Divider(
+                height: 40.0,
+                color: Colors.lightBlue,
+              ),
+              _crearTextRegister()
             ],
           ),
         ));
   }
 
+/*
+Este metodo crea el texto de registro y hace que sea clickable
+*/
+  Widget _crearTextRegister() {
+    return Center(
+      child: RichText(
+        text: TextSpan(children: [
+          const TextSpan(
+            text: '¿No tienes cuenta?  ',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          TextSpan(
+              text: 'Regístrate',
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  Navigator.pushNamed(context, "register");
+                })
+        ]),
+      ),
+    );
+  }
+
+/*
+Este metodo crea y decora el boton login
+*/
   Widget _crearBotonLogin() {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(primary: Colors.black),
       child: const Text("Login"),
       onPressed: () {
         _usuario = Usuario(_email, _password);
@@ -72,15 +110,23 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+/*
+Este metodo crea y decora el Textfield del email
+*/
   Widget _crearEmail() {
     return TextField(
         keyboardType: TextInputType.emailAddress,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(35)),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
             hintText: 'Email',
             labelText: 'Email',
-            labelStyle: TextStyle(color: Colors.black),
-            suffixIcon: Icon(Icons.alternate_email),
-            icon: Icon(
+            labelStyle: const TextStyle(color: Colors.black),
+            suffixIcon: const Icon(Icons.alternate_email),
+            icon: const Icon(
               Icons.email,
               color: Colors.blueGrey,
             )),
@@ -89,33 +135,28 @@ class _LoginPageState extends State<LoginPage> {
             }));
   }
 
+/*
+Este metodo crear y decora el Textfield de contraseñas
+*/
   Widget _crearPassword() {
     return TextField(
         obscureText: true,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(35)),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
             hintText: 'Password',
             labelText: 'Password',
-            labelStyle: TextStyle(color: Colors.black),
-            suffixIcon: Icon(Icons.lock_open),
-            icon: Icon(
+            labelStyle: const TextStyle(color: Colors.black),
+            suffixIcon: const Icon(Icons.lock_open),
+            icon: const Icon(
               Icons.lock,
               color: Colors.blueGrey,
             )),
         onChanged: (valor) => setState(() {
               _password = valor;
             }));
-  }
-
-  List<DropdownMenuItem<String>> getOpcionesDropdown() {
-    List<DropdownMenuItem<String>> lista = [];
-
-    _poderes.forEach((poder) {
-      lista.add(DropdownMenuItem(
-        child: Text(poder),
-        value: poder,
-      ));
-    });
-
-    return lista;
   }
 }
