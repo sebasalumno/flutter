@@ -99,8 +99,9 @@ Este metodo crea y decora el boton login
         _loginService
             .login(_usuario)
             .then((onValue) => {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text('Bienvenido')))
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Bienvenido'))),
+                  Navigator.pushNamed(context, 'home')
                 })
             .catchError((onError) => {
                   ScaffoldMessenger.of(context)
