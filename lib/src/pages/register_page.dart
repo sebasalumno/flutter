@@ -7,6 +7,8 @@ class RegisterPage extends StatefulWidget {
 
 class _registerPageState extends State<RegisterPage> {
   String _email = '';
+  String _name = '';
+  String _apellido = '';
   String _password = '';
   String _nombre = '';
   String dropdownValue = 'provincias';
@@ -14,6 +16,7 @@ class _registerPageState extends State<RegisterPage> {
   String dropdownValueGrados = 'Grados';
   String dropdownValueCiclo = 'Ciclo';
   String _nota = '';
+  DateTime currentDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,12 @@ class _registerPageState extends State<RegisterPage> {
                 height: 20.0,
                 color: Colors.lightBlue,
               ),
-              _Crearnombre(),
+              _crearnombre(),
+              const Divider(
+                height: 20.0,
+                color: Colors.lightBlue,
+              ),
+              _crearApellido(),
               const Divider(
                 height: 20.0,
                 color: Colors.lightBlue,
@@ -55,6 +63,11 @@ class _registerPageState extends State<RegisterPage> {
                 color: Colors.lightBlue,
               ),
               _CrearGrados(),
+              const Divider(
+                height: 10.0,
+                color: Colors.lightBlue,
+              ),
+              _datebutton(context),
               const Divider(
                 height: 10.0,
                 color: Colors.lightBlue,
@@ -99,11 +112,35 @@ Este metodo crea y decora el Textfield del email
               _email = valor;
             }));
   }
+  /*
+  *
+  */
+
+  Widget _datebutton(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(primary: Colors.black),
+      onPressed: () => _selectDate(context),
+      child: const Text('Select date'),
+    );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: currentDate,
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2050));
+    if (pickedDate != null && pickedDate != currentDate) {
+      setState(() {
+        currentDate = pickedDate;
+      });
+    }
+  }
 
   /*
 Este metodo crea y decora el Textfield del nombre
 */
-  Widget _Crearnombre() {
+  Widget _crearnombre() {
     return TextField(
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
@@ -121,7 +158,32 @@ Este metodo crea y decora el Textfield del nombre
               color: Colors.blueGrey,
             )),
         onChanged: (valor) => setState(() {
-              _email = valor;
+              _name = valor;
+            }));
+  }
+
+/*
+Este metodo crea y decora el Textfield del nombre
+*/
+  Widget _crearApellido() {
+    return TextField(
+        keyboardType: TextInputType.name,
+        decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(35)),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+            hintText: 'apellido',
+            labelText: 'apellido',
+            labelStyle: const TextStyle(color: Colors.black),
+            suffixIcon: const Icon(Icons.account_circle),
+            icon: const Icon(
+              Icons.account_circle,
+              color: Colors.blueGrey,
+            )),
+        onChanged: (valor) => setState(() {
+              _apellido = valor;
             }));
   }
 
