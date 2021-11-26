@@ -1,4 +1,4 @@
-import 'package:drawer/src/pages/alert_page.dart';
+import '/src/pages/alert_page.dart';
 import 'package:drawer/src/pages/avatar_page.dart';
 import 'package:drawer/src/pages/card_page.dart';
 import 'package:drawer/src/pages/login_page.dart';
@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,

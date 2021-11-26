@@ -309,6 +309,7 @@ Este metodo crea y decora el boton register
       onPressed: () {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Bien')));
+                  Navigator.pushNamed(context, 'home');
       },
     );
   }
