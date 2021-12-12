@@ -2,9 +2,14 @@
     "nombreApp" : "Drawer",
         "rutas" :  [
             {
-                "ruta":"login",
-                "icon":"add_alert",
-               "texto": "LoginPage"
+                "ruta":"positions",
+                "icon":"work",
+               "texto": "posiciones"
+            },
+            {
+                "ruta":"settings",
+                "icon":"account_circle",
+               "texto": "Mis ajustes"
             },
             {
                 "ruta":"alert",

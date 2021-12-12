@@ -1,4 +1,3 @@
-import 'package:drawer/src/pages/alert_page.dart';
 import 'package:flutter/material.dart';
 
 import '../providers/menu_provider.dart';
@@ -10,6 +9,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.black,
           title: const Text('mi app'),
         ),
         drawer: Drawer(child: _lista()),

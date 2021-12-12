@@ -9,6 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _isValid = true;
   String _nombre = '';
   String _email = '';
   String _password = '';
@@ -92,23 +93,28 @@ Este metodo crea y decora el boton login
 */
   Widget _crearBotonLogin() {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(primary: Colors.black),
-      child: const Text("Login"),
-      onPressed: () {
-        _usuario = Usuario(_email, _password);
-        _loginService
-            .login(_usuario)
-            .then((onValue) => {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Bienvenido'))),
-                  Navigator.pushNamed(context, 'home')
-                })
-            .catchError((onError) => {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text('Cagaste')))
-                });
-      },
-    );
+        style: ElevatedButton.styleFrom(primary: Colors.black),
+        child: const Text("Login"),
+        onPressed: () {
+          _isValid = _email.isNotEmpty && _password.isNotEmpty;
+          if (_isValid) {
+            _usuario = Usuario(_email, _password);
+
+            _loginService.login(_usuario).then((response) {
+              if (response.statusCode == 200) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(content: Text('Bienvenido')));
+                Navigator.pushNamed(context, 'home');
+              } else {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(content: Text('Cagaste')));
+              }
+            }).catchError((onError) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Error')));
+            });
+          }
+        });
   }
 
 /*

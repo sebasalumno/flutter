@@ -1,3 +1,5 @@
+import 'package:drawer/src/pages/config_page.dart';
+
 import '/src/pages/alert_page.dart';
 import 'package:drawer/src/pages/avatar_page.dart';
 import 'package:drawer/src/pages/card_page.dart';
@@ -41,7 +43,8 @@ Este metodo permite la navegacion entre las distintas pages de nuestra aplicacio
       'home': (context) => MyHomePage(),
       'alert': (context) => MyAlertPage(),
       'avatar': (context) => AvatarPage(),
-      'card': (context) => CardPage()
+      'card': (context) => CardPage(),
+      'settings': (context) => MyConfigPage()
     };
   }
 }
