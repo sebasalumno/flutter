@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:drawer/src/models/register.dart';
+import 'package:drawer/src/services/register_service.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -15,8 +19,11 @@ class _registerPageState extends State<RegisterPage> {
   String _localidad = '';
   String dropdownValueGrados = 'Grados';
   String dropdownValueCiclo = 'Ciclo';
-  String _nota = '';
-  DateTime currentDate = DateTime.now();
+  double _nota = 0;
+  DateTime nacimiento = DateTime.now();
+  late Register _register;
+
+  RegisterService _registerService = new RegisterService();
 
   @override
   Widget build(BuildContext context) {
@@ -127,12 +134,12 @@ Este metodo crea y decora el Textfield del email
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
         context: context,
-        initialDate: currentDate,
+        initialDate: nacimiento,
         firstDate: DateTime(2000),
         lastDate: DateTime(2050));
-    if (pickedDate != null && pickedDate != currentDate) {
+    if (pickedDate != null && pickedDate != nacimiento) {
       setState(() {
-        currentDate = pickedDate;
+        nacimiento = pickedDate;
       });
     }
   }
@@ -304,14 +311,22 @@ Este metodo crea y decora el boton register
 */
   Widget _crearBotonRegister() {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(primary: Colors.black),
-      child: const Text("Register"),
-      onPressed: () {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Bien')));
-                  Navigator.pushNamed(context, 'home');
-      },
-    );
+        style: ElevatedButton.styleFrom(primary: Colors.black),
+        child: const Text("Register"),
+        onPressed: () {
+          _register =
+              Register(_email, _name, _password, 1, _localidad, 1, 1, _nota);
+          _registerService.register(_register).then((response) {
+            if (response.statusCode == 200) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Bien')));
+              Navigator.pushNamed(context, 'home');
+            } else {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('no')));
+            }
+          });
+        });
   }
 
 /*
@@ -335,7 +350,7 @@ Este metodo crea y decora el boton register
               color: Colors.blueGrey,
             )),
         onChanged: (valor) => setState(() {
-              _nota = valor;
+              _nota = double.parse(valor);
             }));
   }
 

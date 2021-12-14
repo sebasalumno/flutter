@@ -17,15 +17,6 @@ class _LoginPageState extends State<LoginPage> {
 
   LoginService _loginService = new LoginService();
 
-  String _opcionSeleccionada = 'Volar';
-
-  final List<String> _poderes = [
-    'Volar',
-    'Rayos X',
-    'Super Aliento',
-    'Super Fuerza'
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

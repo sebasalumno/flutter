@@ -18,19 +18,21 @@ class _configPageState extends State<MyConfigPage> {
           shrinkWrap: true,
           padding: const EdgeInsets.all(20.0),
           children: <Widget>[
-            miCardImage('hey', Icons.settings, 'Mis ajustes')
+            miCardImage('hey', Icons.settings, 'Mis ajustes'),
           ]),
     );
   }
 
   Card miCardImage(String texto, IconData icon, String texto2) {
     return Card(
+        color: Colors.lightBlue,
         child: ListTile(
-            onTap: () {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(texto)));
-            },
-            leading: Icon(icon),
-            title: Text(texto2)));
+          onTap: () {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(texto)));
+          },
+          leading: Icon(icon),
+          title: Text(texto2),
+        ));
   }
 }
