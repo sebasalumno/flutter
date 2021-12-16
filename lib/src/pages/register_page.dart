@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:drawer/src/models/register.dart';
+import 'package:drawer/src/services/provincia_service.dart';
 import 'package:drawer/src/services/register_service.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,7 @@ class _registerPageState extends State<RegisterPage> {
   late Register _register;
 
   RegisterService _registerService = new RegisterService();
+  ProvinciaService _provinciaService = new ProvinciaService();
 
   @override
   Widget build(BuildContext context) {
@@ -314,8 +316,8 @@ Este metodo crea y decora el boton register
         style: ElevatedButton.styleFrom(primary: Colors.black),
         child: const Text("Register"),
         onPressed: () {
-          _register =
-              Register(_email, _name, _password, 1, _localidad, 1, 1, _nota);
+          _register = Register(
+              _email, _name, _apellido, _password, 1, _localidad, 1, 1, _nota);
           _registerService.register(_register).then((response) {
             if (response.statusCode == 200) {
               ScaffoldMessenger.of(context)

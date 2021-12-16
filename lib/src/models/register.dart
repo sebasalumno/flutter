@@ -3,6 +3,7 @@ import 'dart:convert';
 class Register {
   final String email;
   final String name;
+  final String surname;
   final String password;
   final int provincia;
   final String localidad;
@@ -11,12 +12,13 @@ class Register {
   final int ciclo;
   final double nota;
 
-  Register(this.email, this.name, this.password, this.provincia, this.localidad,
-      this.grado, this.ciclo, this.nota);
+  Register(this.email, this.name, this.surname, this.password, this.provincia,
+      this.localidad, this.grado, this.ciclo, this.nota);
 
   Register.fromJson(Map<String, dynamic> json)
       : email = json['email'],
         name = json['name'],
+        surname = json['username'],
         password = json['password'],
         provincia = json['provinciaid'],
         localidad = json['localidad'],
