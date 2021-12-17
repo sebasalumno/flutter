@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 
 class Provincia {
@@ -5,8 +6,7 @@ class Provincia {
   final String name;
 
   Provincia(this.id, this.name);
-
-  Provincia.fromJson(Map<String, dynamic> json)
+    Provincia.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'];
 
