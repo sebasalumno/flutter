@@ -1,6 +1,11 @@
-import 'dart:ffi';
-
+import 'package:drawer/src/models/ciclo.dart';
+import 'package:drawer/src/models/familia.dart';
+import 'package:drawer/src/models/grado.dart';
+import 'package:drawer/src/models/provincia.dart';
 import 'package:drawer/src/models/register.dart';
+import 'package:drawer/src/services/ciclo_service.dart';
+import 'package:drawer/src/services/familia_service.dart';
+import 'package:drawer/src/services/grado_service.dart';
 import 'package:drawer/src/services/provincia_service.dart';
 import 'package:drawer/src/services/register_service.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +16,10 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _registerPageState extends State<RegisterPage> {
+  int dropdownProvinceValue = 1;
+  int dropdownGradoValue = 1;
+  int dropdownFamiliaValue = 1;
+  int dropdownCicloValue = 1;
   String _email = '';
   String _name = '';
   String _apellido = '';
@@ -18,7 +27,7 @@ class _registerPageState extends State<RegisterPage> {
   String _nombre = '';
   String dropdownValue = 'provincias';
   String _localidad = '';
-  String dropdownValueGrados = 'Grados';
+
   String dropdownValueCiclo = 'Ciclo';
   double _nota = 0;
   DateTime nacimiento = DateTime.now();
@@ -26,6 +35,9 @@ class _registerPageState extends State<RegisterPage> {
 
   RegisterService _registerService = new RegisterService();
   ProvinciaService _provinciaService = new ProvinciaService();
+  GradoService _gradoService = new GradoService();
+  FamiliaService _familiaService = new FamiliaService();
+  CicloService _cicloService = new CicloService();
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +73,11 @@ class _registerPageState extends State<RegisterPage> {
                 height: 10.0,
                 color: Colors.lightBlue,
               ),
-              _CrearProvincias(),
+              Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: Colors.lightBlue,
+                  ),
+                  child: provincias()),
               const Divider(
                 height: 20.0,
                 color: Colors.lightBlue,
@@ -71,7 +87,11 @@ class _registerPageState extends State<RegisterPage> {
                 height: 10.0,
                 color: Colors.lightBlue,
               ),
-              _CrearGrados(),
+              Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: Colors.lightBlue,
+                  ),
+                  child: grados()),
               const Divider(
                 height: 10.0,
                 color: Colors.lightBlue,
@@ -81,7 +101,20 @@ class _registerPageState extends State<RegisterPage> {
                 height: 10.0,
                 color: Colors.lightBlue,
               ),
-              _CrearCiclos(),
+              Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: Colors.lightBlue,
+                  ),
+                  child: familia()),
+              const Divider(
+                height: 20.0,
+                color: Colors.lightBlue,
+              ),
+              Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: Colors.lightBlue,
+                  ),
+                  child: ciclo()),
               const Divider(
                 height: 20.0,
                 color: Colors.lightBlue,
@@ -253,31 +286,6 @@ Este metodo crea y decora el Textfield de la localidad
 /*
  * Este metodo crear y decora(relativamente) el dropdown de grados;
  */
-  Widget _CrearGrados() {
-    return DropdownButton<String>(
-      value: dropdownValueGrados,
-      icon: const Icon(Icons.arrow_drop_down_rounded),
-      iconSize: 24,
-      elevation: 16,
-      style: const TextStyle(color: Colors.black),
-      underline: Container(
-        height: 2,
-        color: Colors.black,
-      ),
-      onChanged: (String? newValue) {
-        setState(() {
-          dropdownValueGrados = newValue!;
-        });
-      },
-      items: <String>['Grados', 'Two', 'Free', 'Four']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
-  }
 
 /*
  * Este metodo crear y decora(relativamente) el dropdown de ciclos;
@@ -317,7 +325,16 @@ Este metodo crea y decora el boton register
         child: const Text("Register"),
         onPressed: () {
           _register = Register(
-              _email, _name, _apellido, _password, 1, _localidad, 1, 1, _nota);
+              _email,
+              _name,
+              _apellido,
+              _password,
+              dropdownProvinceValue,
+              _localidad,
+              dropdownGradoValue,
+              dropdownFamiliaValue,
+              dropdownCicloValue,
+              _nota);
           _registerService.register(_register).then((response) {
             if (response.statusCode == 200) {
               ScaffoldMessenger.of(context)
@@ -379,5 +396,146 @@ Este metodo crear y decora el Textfield de contraseñas
         onChanged: (valor) => setState(() {
               _password = valor;
             }));
+  }
+
+  Widget provincias() {
+    return FutureBuilder(
+        future: ProvinciaService().loadProvincias(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            List<DropdownMenuItem<Provincia>> listaProvincias = [];
+            for (var item in snapshot.data) {
+              listaProvincias
+                  .add(DropdownMenuItem(child: Text(item.nombre), value: item));
+            }
+
+            return DropdownButton<Provincia>(
+              value: listaProvincias[dropdownProvinceValue - 1].value,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: const TextStyle(color: Colors.black),
+              underline: Container(
+                height: 2,
+                color: Colors.blueGrey,
+              ),
+              onChanged: (Provincia? newValue) {
+                setState(() {
+                  dropdownProvinceValue = newValue!.id;
+                });
+              },
+              items: listaProvincias,
+            );
+          } else if (snapshot.hasError) {
+            return const Text("Error");
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
+  }
+
+  Widget grados() {
+    return FutureBuilder(
+        future: GradoService().loadGrado(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            List<DropdownMenuItem<Grado>> listaGrados = [];
+            for (var item in snapshot.data) {
+              listaGrados
+                  .add(DropdownMenuItem(child: Text(item.name), value: item));
+            }
+            return DropdownButton<Grado>(
+              value: listaGrados[dropdownGradoValue - 1].value,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: const TextStyle(color: Colors.black),
+              underline: Container(
+                height: 2,
+                color: Colors.blueGrey,
+              ),
+              onChanged: (Grado? newValue) {
+                setState(() {
+                  dropdownGradoValue = newValue!.id;
+                });
+              },
+              items: listaGrados,
+            );
+          } else if (snapshot.hasError) {
+            return const Text("Error");
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
+  }
+
+  Widget familia() {
+    return FutureBuilder(
+        future: FamiliaService().loadFamilia(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            List<DropdownMenuItem<Familia>> listaFamilia = [];
+            for (var item in snapshot.data) {
+              listaFamilia
+                  .add(DropdownMenuItem(child: Text(item.name), value: item));
+            }
+            return DropdownButton<Familia>(
+              value: listaFamilia[dropdownFamiliaValue - 1].value,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: const TextStyle(color: Colors.black),
+              underline: Container(
+                height: 2,
+                color: Colors.blueGrey,
+              ),
+              onChanged: (Familia? newValue) {
+                setState(() {
+                  dropdownFamiliaValue = newValue!.id;
+                });
+              },
+              items: listaFamilia,
+            );
+          } else if (snapshot.hasError) {
+            return const Text("Error");
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
+  }
+
+  Widget ciclo() {
+    return FutureBuilder(
+        future: CicloService().loadCiclo(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            List<DropdownMenuItem<Ciclo>> listaCiclo = [];
+            for (var item in snapshot.data) {
+              listaCiclo
+                  .add(DropdownMenuItem(child: Text(item.name), value: item));
+            }
+            return DropdownButton<Ciclo>(
+              value: listaCiclo[dropdownCicloValue - 1].value,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: const TextStyle(color: Colors.black),
+              underline: Container(
+                height: 2,
+                color: Colors.blueGrey,
+              ),
+              onChanged: (Ciclo? newValue) {
+                setState(() {
+                  dropdownCicloValue = newValue!.id;
+                });
+              },
+              items: listaCiclo,
+            );
+          } else if (snapshot.hasError) {
+            return const Text("Error");
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
   }
 }

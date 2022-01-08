@@ -2,14 +2,19 @@
     "nombreApp" : "Drawer",
         "rutas" :  [
             {
-                "ruta":"positions",
+                "ruta":"profile",
+                "icon":"work",
+               "texto": "perfil"
+            },
+            {
+                "ruta":"position",
                 "icon":"work",
                "texto": "posiciones"
             },
             {
                 "ruta":"settings",
                 "icon":"account_circle",
-               "texto": "Mis ajustes"
+               "texto": "Mi perfil"
             },
             {
                 "ruta":"alert",

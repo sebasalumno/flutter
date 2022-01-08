@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class PositioPage extends StatefulWidget {
+class PositionPage extends StatefulWidget {
   @override
   _positionPageState createState() => _positionPageState();
 }
 
-class _positionPageState extends State<PositioPage> {
+class _positionPageState extends State<PositionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

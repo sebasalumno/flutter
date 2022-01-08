@@ -1,4 +1,9 @@
+import 'dart:async';
+
 import 'package:drawer/src/pages/config_page.dart';
+import 'package:drawer/src/pages/offers_page.dart';
+import 'package:drawer/src/pages/position_page.dart';
+import 'package:drawer/src/pages/profile_page.dart';
 
 import '/src/pages/alert_page.dart';
 import 'package:drawer/src/pages/avatar_page.dart';
@@ -44,7 +49,10 @@ Este metodo permite la navegacion entre las distintas pages de nuestra aplicacio
       'alert': (context) => MyAlertPage(),
       'avatar': (context) => AvatarPage(),
       'card': (context) => CardPage(),
-      'settings': (context) => MyConfigPage()
+      'settings': (context) => MyConfigPage(),
+      'position': (context) => PositionPage(),
+      'profile': (context) => ProfilePage(),
+      'offers': (context) => MyOfferPage()
     };
   }
 }
