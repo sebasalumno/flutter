@@ -1,5 +1,10 @@
 import 'dart:convert';
 
+Usuario usuario(String str) {
+  final jsonData = json.decode(str);
+  return Usuario.fromJson(jsonData);
+}
+
 class Usuario {
   final String email;
   final String password;

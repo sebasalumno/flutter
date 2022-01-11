@@ -16,6 +16,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _registerPageState extends State<RegisterPage> {
+  bool _isValid = false;
   int dropdownProvinceValue = 1;
   int dropdownGradoValue = 1;
   int dropdownFamiliaValue = 1;
@@ -324,27 +325,38 @@ Este metodo crea y decora el boton register
         style: ElevatedButton.styleFrom(primary: Colors.black),
         child: const Text("Register"),
         onPressed: () {
-          _register = Register(
-              _email,
-              _name,
-              _apellido,
-              _password,
-              dropdownProvinceValue,
-              _localidad,
-              dropdownGradoValue,
-              dropdownFamiliaValue,
-              dropdownCicloValue,
-              _nota);
-          _registerService.register(_register).then((response) {
-            if (response.statusCode == 200) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('Bien')));
-              Navigator.pushNamed(context, 'home');
-            } else {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('no')));
-            }
-          });
+          _isValid = dropdownCicloValue == 0 &&
+              dropdownGradoValue == 0 &&
+              dropdownFamiliaValue == 0 &&
+              dropdownProvinceValue == 0 &&
+              _email.compareTo('') == 0 &&
+              _name.compareTo('') == 0 &&
+              _apellido.compareTo('') == 0 &&
+              _localidad.compareTo('') == 0 &&
+              _nota < 0 == true;
+          if (_isValid) {
+            _register = Register(
+                _email,
+                _name,
+                _apellido,
+                _password,
+                dropdownProvinceValue,
+                _localidad,
+                dropdownGradoValue,
+                dropdownFamiliaValue,
+                dropdownCicloValue,
+                _nota);
+            _registerService.register(_register).then((response) {
+              if (response.statusCode == 200) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(content: Text('Bien')));
+                Navigator.pushNamed(context, 'home');
+              } else {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(content: Text('no')));
+              }
+            });
+          }
         });
   }
 

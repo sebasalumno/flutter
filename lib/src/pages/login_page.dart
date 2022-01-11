@@ -1,5 +1,9 @@
+import 'dart:ffi';
+
 import 'package:drawer/src/models/usuario.dart';
+import 'package:drawer/src/services/id_service.dart';
 import 'package:drawer/src/services/login_service.dart';
+import 'package:drawer/src/variables/variables_globales.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   late Usuario _usuario;
 
   LoginService _loginService = new LoginService();
+  IdService _idService = new IdService();
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +98,9 @@ Este metodo crea y decora el boton login
 
             _loginService.login(_usuario).then((response) {
               if (response.statusCode == 200) {
+                _idusuario();
                 ScaffoldMessenger.of(context)
-                    .showSnackBar(const SnackBar(content: Text('Bienvenido')));
+                    .showSnackBar(SnackBar(content: Text(userId.toString())));
                 Navigator.pushNamed(context, 'home');
               } else {
                 ScaffoldMessenger.of(context)
@@ -131,6 +137,22 @@ Este metodo crea y decora el Textfield del email
         onChanged: (valor) => setState(() {
               _email = valor;
             }));
+  }
+
+  Widget _idusuario() {
+    return FutureBuilder(
+        future: IdService().loadId(_email),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            userId = snapshot.data.id;
+
+            return Text(userId.toString());
+          } else if (snapshot.hasError) {
+            return const Text('Error');
+          } else {
+            return const Text('else');
+          }
+        });
   }
 
 /*

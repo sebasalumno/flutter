@@ -1,3 +1,5 @@
+import 'package:drawer/src/services/usuario_service.dart';
+import 'package:drawer/src/variables/variables_globales.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -15,6 +17,8 @@ class MapScreenState extends State<ProfilePage>
   void initState() {
     super.initState();
   }
+
+  UsuarioService _usuarioservice = new UsuarioService();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +94,7 @@ class MapScreenState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.min,
                                 children: const <Widget>[
                                   Text(
-                                    'Parsonal Information',
+                                    'Personal Information',
                                     style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold),
@@ -133,13 +137,7 @@ class MapScreenState extends State<ProfilePage>
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               Flexible(
-                                child: TextField(
-                                  decoration: const InputDecoration(
-                                    hintText: "Tu nombre",
-                                  ),
-                                  enabled: !_status,
-                                  autofocus: !_status,
-                                ),
+                                child: miPerfilNombre(),
                               ),
                             ],
                           )),
@@ -170,13 +168,7 @@ class MapScreenState extends State<ProfilePage>
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               Flexible(
-                                child: TextField(
-                                  decoration: const InputDecoration(
-                                    hintText: "Tu apellido",
-                                  ),
-                                  enabled: !_status,
-                                  autofocus: !_status,
-                                ),
+                                child: miPerfilApellido(),
                               ),
                             ],
                           )),
@@ -207,11 +199,7 @@ class MapScreenState extends State<ProfilePage>
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               Flexible(
-                                child: TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: "Tu Email"),
-                                  enabled: !_status,
-                                ),
+                                child: miPerfilEmail(),
                               ),
                             ],
                           )),
@@ -277,11 +265,7 @@ class MapScreenState extends State<ProfilePage>
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               Flexible(
-                                child: TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: "Tu localidad"),
-                                  enabled: !_status,
-                                ),
+                                child: miPerfilLocalidad(),
                               ),
                             ],
                           )),
@@ -331,11 +315,7 @@ class MapScreenState extends State<ProfilePage>
                                 flex: 2,
                               ),
                               Flexible(
-                                child: TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: "Tu nota"),
-                                  enabled: !_status,
-                                ),
+                                child: miPerfilNota(),
                                 flex: 2,
                               ),
                             ],
@@ -407,6 +387,106 @@ class MapScreenState extends State<ProfilePage>
         ],
       ),
     );
+  }
+
+  Widget miPerfilEmail() {
+    return FutureBuilder(
+        future: UsuarioService().getUsuario(userId.toString()),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return TextField(
+              decoration: InputDecoration(
+                hintText: snapshot.data!.email,
+              ),
+              enabled: !_status,
+              autofocus: !_status,
+            );
+          } else if (snapshot.hasError) {
+            return const Text("Error");
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
+  }
+
+  Widget miPerfilApellido() {
+    return FutureBuilder(
+        future: UsuarioService().getUsuario(userId.toString()),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return TextField(
+              decoration: InputDecoration(
+                hintText: snapshot.data!.apellido,
+              ),
+              enabled: !_status,
+              autofocus: !_status,
+            );
+          } else if (snapshot.hasError) {
+            return const Text("Error");
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
+  }
+
+  Widget miPerfilNombre() {
+    return FutureBuilder(
+        future: UsuarioService().getUsuario(userId.toString()),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return TextField(
+              decoration: InputDecoration(
+                hintText: snapshot.data!.nombre,
+              ),
+              enabled: !_status,
+              autofocus: !_status,
+            );
+          } else if (snapshot.hasError) {
+            return const Text("Error");
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
+  }
+
+  Widget miPerfilLocalidad() {
+    return FutureBuilder(
+        future: UsuarioService().getUsuario(userId.toString()),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return TextField(
+              decoration: InputDecoration(
+                hintText: snapshot.data!.localidad,
+              ),
+              enabled: !_status,
+              autofocus: !_status,
+            );
+          } else if (snapshot.hasError) {
+            return const Text("Error");
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
+  }
+
+  Widget miPerfilNota() {
+    return FutureBuilder(
+        future: UsuarioService().getUsuario(userId.toString()),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return TextField(
+              decoration: InputDecoration(
+                hintText: snapshot.data!.nota.toString(),
+              ),
+              enabled: !_status,
+              autofocus: !_status,
+            );
+          } else if (snapshot.hasError) {
+            return const Text("Error");
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
   }
 
   Widget _getEditIcon() {

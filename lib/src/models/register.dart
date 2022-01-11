@@ -11,6 +11,7 @@ class Register {
   final int familia;
   final int ciclo;
   final double nota;
+  //final DateTime nacimiento;
 
   Register(
     this.email,
