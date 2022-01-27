@@ -1,3 +1,4 @@
+import 'package:drawer/src/methods/authclient.dart';
 import 'package:drawer/src/models/id.dart';
 import 'package:http/http.dart' as http;
 
@@ -6,7 +7,9 @@ class IdService {
   final controller = '/api/Usuario/GetId?email=';
 
   Future<Idclass> loadId(String email) async {
-    var response = await http.get(Uri.parse(urlserver + controller + email));
+    final AuthHttpClient authHttpClient = AuthHttpClient();
+    var response =
+        await authHttpClient.get(Uri.parse(urlserver + controller + email));
     if (response.statusCode == 200) {
       return id(response.body);
     } else {

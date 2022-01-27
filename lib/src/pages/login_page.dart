@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:drawer/src/models/usuario.dart';
 import 'package:drawer/src/services/id_service.dart';
 import 'package:drawer/src/services/login_service.dart';
+import 'package:drawer/src/services/storage_service.dart';
 import 'package:drawer/src/variables/variables_globales.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
 
   LoginService _loginService = new LoginService();
   IdService _idService = new IdService();
+  StorageService _storageService = new StorageService();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,12 @@ class _LoginPageState extends State<LoginPage> {
                 height: 40.0,
                 color: Colors.lightBlue,
               ),
-              _crearTextRegister()
+              _crearTextRegister(),
+              const Divider(
+                height: 40.0,
+                color: Colors.lightBlue,
+              ),
+              _crearTextConfirmation()
             ],
           ),
         ));
@@ -84,6 +91,30 @@ Este metodo crea el texto de registro y hace que sea clickable
     );
   }
 
+  Widget _crearTextConfirmation() {
+    return Center(
+      child: RichText(
+        text: TextSpan(children: [
+          const TextSpan(
+            text: 'Confirma tu cuenta   ',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          TextSpan(
+              text: 'Aquí',
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  Navigator.pushNamed(context, "confirmation");
+                })
+        ]),
+      ),
+    );
+  }
+
 /*
 Este metodo crea y decora el boton login
 */
@@ -99,6 +130,8 @@ Este metodo crea y decora el boton login
             _loginService.login(_usuario).then((response) {
               if (response.statusCode == 200) {
                 _idusuario();
+                _storageService.add("authorization",
+                    response.headers['authorization'].toString());
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(userId.toString())));
                 Navigator.pushNamed(context, 'home');

@@ -6,9 +6,9 @@ class AuthHttpClient extends http.BaseClient {
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
-    final token = 'Bearer ' + await storageService.read('token');
+    final token = 'Bearer ' + await storageService.read('authorization');
     if (token.isNotEmpty) {
-      request.headers.putIfAbsent('Authorization', () => token);
+      request.headers.putIfAbsent('authorization', () => token);
     }
 
     return request.send();
