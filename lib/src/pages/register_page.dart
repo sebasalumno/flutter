@@ -28,6 +28,7 @@ class _registerPageState extends State<RegisterPage> {
   String _nombre = '';
   String dropdownValue = 'provincias';
   String _localidad = '';
+  bool _confirmado = false;
 
   String dropdownValueCiclo = 'Ciclo';
   double _nota = 0;
@@ -345,7 +346,8 @@ Este metodo crea y decora el boton register
                 dropdownGradoValue,
                 dropdownFamiliaValue,
                 dropdownCicloValue,
-                _nota);
+                _nota,
+                _confirmado);
             _registerService.register(_register).then((response) {
               if (response.statusCode == 200) {
                 ScaffoldMessenger.of(context)

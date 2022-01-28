@@ -11,6 +11,7 @@ class Register {
   final int familia;
   final int ciclo;
   final double nota;
+  final bool confirmado;
   //final DateTime nacimiento;
 
   Register(
@@ -24,6 +25,7 @@ class Register {
     this.familia,
     this.ciclo,
     this.nota,
+    this.confirmado
   );
 
   Register.fromJson(Map<String, dynamic> json)
@@ -36,7 +38,8 @@ class Register {
         grado = json['tipocicloid'],
         familia = json['familiaid'],
         ciclo = json['cicloid'],
-        nota = json['nota'];
+        nota = json['nota'],
+        confirmado = json['confirmado'];
 
   String toJson() => jsonEncode({
         'email': email,
@@ -47,6 +50,7 @@ class Register {
         'localidad': localidad,
         'tipocicloid': grado,
         'cicloid': ciclo,
-        'nota': nota
+        'nota': nota,
+        'confirmado':confirmado
       });
 }

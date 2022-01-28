@@ -2,6 +2,7 @@ import 'package:drawer/src/models/inscription.dart';
 import 'package:drawer/src/services/empresa_service.dart';
 import 'package:drawer/src/services/inscription_service.dart';
 import 'package:drawer/src/services/position_service.dart';
+import 'package:drawer/src/variables/variables_globales.dart';
 import 'package:flutter/material.dart';
 
 class PositionPage extends StatefulWidget {
@@ -59,7 +60,7 @@ class _positionPageState extends State<PositionPage> {
               TextButton(
                   onPressed: () {
                     _inscription = Inscription(
-                        2 //(Variable Global)
+                        userId //(Variable Global)
                         ,
                         element.Id,
                         0);
