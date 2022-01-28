@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:drawer/src/pages/changepassword_page.dart';
 import 'package:drawer/src/pages/config_page.dart';
 import 'package:drawer/src/pages/confirmation_page.dart';
 
@@ -53,7 +54,8 @@ Este metodo permite la navegacion entre las distintas pages de nuestra aplicacio
       'settings': (context) => MyConfigPage(),
       'position': (context) => PositionPage(),
       'profile': (context) => ProfilePage(),
-      'confirmation': (context) => ConfirmationPage()
+      'confirmation': (context) => ConfirmationPage(),
+      'changepage': (context) => ChangePasswordPage()
     };
   }
 }

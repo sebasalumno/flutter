@@ -1,3 +1,4 @@
+import 'package:drawer/src/models/confirmation.dart';
 import 'package:drawer/src/pages/login_page.dart';
 import 'package:drawer/src/services/sendcode_service.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
   int _codigo = 0;
   bool _isValid = false;
   SendcodeService _sendcodeService = SendcodeService();
+  late Confirmation _confirmation;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,14 +51,16 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
       onPressed: () {
         _isValid = _email.isNotEmpty && _codigo != 0;
         if (_isValid) {
-          _sendcodeService.sendcode(_email, _codigo).then((response) {
-            if (response == true) {
+          _confirmation = Confirmation(_email, _codigo);
+
+          _sendcodeService.sendcode(_confirmation).then((response) {
+            if (response.statusCode == 200) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('su cuenta ha sido confirmada')));
-              Navigator.pushNamed(context, "login");
+              Navigator.pushNamed(context, "/");
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Codigo incorrecto')));
+                  const SnackBar(content: Text('Codigo o email incorrecto')));
             }
           });
         } else {

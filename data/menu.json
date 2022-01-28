@@ -14,7 +14,7 @@
             {
                 "ruta":"settings",
                 "icon":"account_circle",
-               "texto": "Mi perfil"
+               "texto": "Mi cuenta"
             },
             {
                 "ruta":"alert",
@@ -31,5 +31,6 @@
                 "icon":"folder_open",
                "texto": "Cards o Cartas"
             }
+
                     ]
 }
