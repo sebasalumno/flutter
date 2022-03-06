@@ -30,6 +30,11 @@
                 "ruta":"card",
                 "icon":"folder_open",
                "texto": "Cards o Cartas"
+            },
+            {
+                "ruta":"mensaje",
+                "icon":"message",
+               "texto": "Mensajes"
             }
 
                     ]

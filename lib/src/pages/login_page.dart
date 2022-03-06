@@ -11,7 +11,13 @@ import 'package:flutter/material.dart';
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
+
+  int AlumnoId() {
+    return idusuario;
+  }
 }
+
+int idusuario = 1;
 
 class _LoginPageState extends State<LoginPage> {
   bool _isValid = true;
@@ -133,7 +139,7 @@ Este metodo crea y decora el boton login
                 _storageService.add("authorization",
                     response.headers['authorization'].toString());
                 ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(userId.toString())));
+                    .showSnackBar(SnackBar(content: _idusuario()));
                 Navigator.pushNamed(context, 'home');
               } else {
                 ScaffoldMessenger.of(context)
@@ -177,9 +183,9 @@ Este metodo crea y decora el Textfield del email
         future: IdService().loadId(_email),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            userId = snapshot.data.id;
+            idusuario = snapshot.data.id;
 
-            return Text(userId.toString());
+            return Text(idusuario.toString());
           } else if (snapshot.hasError) {
             return const Text('Error');
           } else {

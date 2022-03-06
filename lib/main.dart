@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:drawer/src/pages/changepassword_page.dart';
 import 'package:drawer/src/pages/config_page.dart';
 import 'package:drawer/src/pages/confirmation_page.dart';
+import 'package:drawer/src/pages/message_page.dart';
 
 import 'package:drawer/src/pages/position_page.dart';
 import 'package:drawer/src/pages/profile_page.dart';
+import 'package:drawer/src/pages/update_page.dart';
 
 import '/src/pages/alert_page.dart';
 import 'package:drawer/src/pages/avatar_page.dart';
@@ -55,7 +57,9 @@ Este metodo permite la navegacion entre las distintas pages de nuestra aplicacio
       'position': (context) => PositionPage(),
       'profile': (context) => ProfilePage(),
       'confirmation': (context) => ConfirmationPage(),
-      'changepage': (context) => ChangePasswordPage()
+      'changepage': (context) => ChangePasswordPage(),
+      'updatepage': (context) => UpdatePage(),
+      'mensaje': (context) => MessagePage()
     };
   }
 }

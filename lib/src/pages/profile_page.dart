@@ -1,3 +1,4 @@
+import 'package:drawer/src/pages/login_page.dart';
 import 'package:drawer/src/services/usuario_service.dart';
 import 'package:drawer/src/variables/variables_globales.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,9 @@ class ProfilePage extends StatefulWidget {
   @override
   MapScreenState createState() => MapScreenState();
 }
+
+LoginPage _login = new LoginPage();
+String _id = _login.AlumnoId().toString();
 
 class MapScreenState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
@@ -391,7 +395,7 @@ class MapScreenState extends State<ProfilePage>
 
   Widget miPerfilEmail() {
     return FutureBuilder(
-        future: UsuarioService().getUsuario(userId.toString()),
+        future: UsuarioService().getUsuario(_id),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return TextField(
@@ -411,7 +415,7 @@ class MapScreenState extends State<ProfilePage>
 
   Widget miPerfilApellido() {
     return FutureBuilder(
-        future: UsuarioService().getUsuario(userId.toString()),
+        future: UsuarioService().getUsuario(_id),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return TextField(
@@ -431,7 +435,7 @@ class MapScreenState extends State<ProfilePage>
 
   Widget miPerfilNombre() {
     return FutureBuilder(
-        future: UsuarioService().getUsuario(userId.toString()),
+        future: UsuarioService().getUsuario(_id),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return TextField(
@@ -451,7 +455,7 @@ class MapScreenState extends State<ProfilePage>
 
   Widget miPerfilLocalidad() {
     return FutureBuilder(
-        future: UsuarioService().getUsuario(userId.toString()),
+        future: UsuarioService().getUsuario(_id),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return TextField(
@@ -471,7 +475,7 @@ class MapScreenState extends State<ProfilePage>
 
   Widget miPerfilNota() {
     return FutureBuilder(
-        future: UsuarioService().getUsuario(userId.toString()),
+        future: UsuarioService().getUsuario(_id),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return TextField(
@@ -501,9 +505,7 @@ class MapScreenState extends State<ProfilePage>
         ),
       ),
       onTap: () {
-        setState(() {
-          _status = false;
-        });
+        Navigator.pushNamed(context, 'updatepage');
       },
     );
   }
