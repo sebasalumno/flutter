@@ -43,14 +43,14 @@ class _messagePageState extends State<MessagePage> {
           child: Column(
         children: <Widget>[
           ListTile(
-            leading: const Icon(Icons.wallet_travel),
+            leading: const Icon(Icons.message),
             title: Text(element.empresaId.toString()),
-            subtitle: const Text("nombre de la empresa"),
+            subtitle: const Text("De la empresa"),
           ),
           ListTile(
-              subtitle: Text("Descripcion de la oferta : " +
-                  element.usuarioId.toString())),
-          ListTile(subtitle: Text("Mensaje : " + element.message)),
+              subtitle:
+                  Text("Para el usuario : " + element.usuarioId.toString())),
+          ListTile(subtitle: Text("Mensaje : " + element.message.toString())),
 
           //FutureBuilder(builder: builder), of ciclos
         ],

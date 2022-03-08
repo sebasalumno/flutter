@@ -16,21 +16,7 @@
                 "icon":"account_circle",
                "texto": "Mi cuenta"
             },
-            {
-                "ruta":"alert",
-                "icon":"add_alert",
-               "texto": "Alerta"
-            },
-            {
-                "ruta":"avatar",
-                "icon":"accessibility",
-               "texto": "Avatares"
-            },
-            {
-                "ruta":"card",
-                "icon":"folder_open",
-               "texto": "Cards o Cartas"
-            },
+
             {
                 "ruta":"mensaje",
                 "icon":"message",

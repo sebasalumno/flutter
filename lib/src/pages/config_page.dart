@@ -1,4 +1,5 @@
 import 'package:drawer/src/models/passwordchanger.dart';
+import 'package:drawer/src/pages/login_page.dart';
 import 'package:drawer/src/services/iniciarpasswordchanger_service.dart';
 import 'package:drawer/src/variables/variables_globales.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,11 @@ class MyConfigPage extends StatefulWidget {
   _configPageState createState() => _configPageState();
 }
 
+LoginPage _login = new LoginPage();
+String _id = _login.AlumnoId().toString();
+
 class _configPageState extends State<MyConfigPage> {
-  PasswordChanger _passwordChanger = PasswordChanger(userId);
+  PasswordChanger _passwordChanger = PasswordChanger(int.parse(_id));
   IniciarPasswordService _iniciarPasswordService = IniciarPasswordService();
   @override
   Widget build(BuildContext context) {

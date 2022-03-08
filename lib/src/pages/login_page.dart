@@ -64,7 +64,12 @@ class _LoginPageState extends State<LoginPage> {
                 height: 40.0,
                 color: Colors.lightBlue,
               ),
-              _crearTextConfirmation()
+              _crearTextConfirmation(),
+              const Divider(
+                height: 40.0,
+                color: Colors.lightBlue,
+              ),
+              _crearTextRecover()
             ],
           ),
         ));
@@ -115,6 +120,30 @@ Este metodo crea el texto de registro y hace que sea clickable
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   Navigator.pushNamed(context, "confirmation");
+                })
+        ]),
+      ),
+    );
+  }
+
+  Widget _crearTextRecover() {
+    return Center(
+      child: RichText(
+        text: TextSpan(children: [
+          const TextSpan(
+            text: 'Recupera tu contraseña:   ',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          TextSpan(
+              text: 'Aquí',
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  Navigator.pushNamed(context, "recover");
                 })
         ]),
       ),

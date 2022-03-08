@@ -7,6 +7,7 @@ import 'package:drawer/src/pages/message_page.dart';
 
 import 'package:drawer/src/pages/position_page.dart';
 import 'package:drawer/src/pages/profile_page.dart';
+import 'package:drawer/src/pages/recover_page.dart';
 import 'package:drawer/src/pages/update_page.dart';
 
 import '/src/pages/alert_page.dart';
@@ -59,7 +60,8 @@ Este metodo permite la navegacion entre las distintas pages de nuestra aplicacio
       'confirmation': (context) => ConfirmationPage(),
       'changepage': (context) => ChangePasswordPage(),
       'updatepage': (context) => UpdatePage(),
-      'mensaje': (context) => MessagePage()
+      'mensaje': (context) => MessagePage(),
+      'recover': (context) => RecoverPage()
     };
   }
 }

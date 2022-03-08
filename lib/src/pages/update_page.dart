@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:drawer/src/models/ciclo.dart';
 import 'package:drawer/src/models/provincia.dart';
 import 'package:drawer/src/models/update.dart';
+import 'package:drawer/src/pages/login_page.dart';
 import 'package:drawer/src/services/ciclo_service.dart';
 import 'package:drawer/src/services/provincia_service.dart';
 import 'package:drawer/src/services/update_service.dart';
@@ -13,6 +14,9 @@ class UpdatePage extends StatefulWidget {
   @override
   _UpdatePageState createState() => _UpdatePageState();
 }
+
+LoginPage _login = new LoginPage();
+String _id = _login.AlumnoId().toString();
 
 class _UpdatePageState extends State<UpdatePage> {
   String _nombre = "";
@@ -80,7 +84,7 @@ class _UpdatePageState extends State<UpdatePage> {
         style: ElevatedButton.styleFrom(primary: Colors.black),
         child: const Text("Register"),
         onPressed: () {
-          _update = Update(userId, _email, _nombre, _apellido,
+          _update = Update(int.parse(_id), _email, _nombre, _apellido,
               dropdownProvinceValue, _localidad, _nota);
           _updateService.update(_update).then((response) {
             if (response.statusCode == 200) {

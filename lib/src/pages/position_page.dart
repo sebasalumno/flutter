@@ -1,4 +1,5 @@
 import 'package:drawer/src/models/inscription.dart';
+import 'package:drawer/src/pages/login_page.dart';
 import 'package:drawer/src/services/empresa_service.dart';
 import 'package:drawer/src/services/inscription_service.dart';
 import 'package:drawer/src/services/position_service.dart';
@@ -9,6 +10,9 @@ class PositionPage extends StatefulWidget {
   @override
   _positionPageState createState() => _positionPageState();
 }
+
+LoginPage _login = new LoginPage();
+String _id = _login.AlumnoId().toString();
 
 class _positionPageState extends State<PositionPage> {
   late Inscription _inscription;
@@ -60,7 +64,7 @@ class _positionPageState extends State<PositionPage> {
               TextButton(
                   onPressed: () {
                     _inscription = Inscription(
-                        userId //(Variable Global)
+                        int.parse(_id) //(Variable Global)
                         ,
                         element.Id,
                         0);

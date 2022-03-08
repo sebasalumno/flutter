@@ -16,7 +16,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _registerPageState extends State<RegisterPage> {
-  bool _isValid = false;
+  bool _isValid = true;
   int dropdownProvinceValue = 1;
   int dropdownGradoValue = 1;
   int dropdownFamiliaValue = 1;
@@ -326,15 +326,16 @@ Este metodo crea y decora el boton register
         style: ElevatedButton.styleFrom(primary: Colors.black),
         child: const Text("Register"),
         onPressed: () {
-          _isValid = dropdownCicloValue == 0 &&
-              dropdownGradoValue == 0 &&
-              dropdownFamiliaValue == 0 &&
-              dropdownProvinceValue == 0 &&
-              _email.compareTo('') == 0 &&
-              _name.compareTo('') == 0 &&
-              _apellido.compareTo('') == 0 &&
-              _localidad.compareTo('') == 0 &&
-              _nota < 0 == true;
+          _isValid = dropdownCicloValue != 0 &&
+              dropdownGradoValue != 0 &&
+              dropdownFamiliaValue != 0 &&
+              dropdownProvinceValue != 0 &&
+              _email.compareTo('') != 0 &&
+              _name.compareTo('') != 0 &&
+              _apellido.compareTo('') != 0 &&
+              _localidad.compareTo('') != 0 &&
+              _nota < 0 != true;
+
           if (_isValid) {
             _register = Register(
                 _email,
@@ -349,10 +350,10 @@ Este metodo crea y decora el boton register
                 _nota,
                 _confirmado);
             _registerService.register(_register).then((response) {
-              if (response.statusCode == 200) {
+              if (response.statusCode == 500) {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(const SnackBar(content: Text('Bien')));
-                Navigator.pushNamed(context, 'home');
+                Navigator.pushNamed(context, 'login');
               } else {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(const SnackBar(content: Text('no')));
